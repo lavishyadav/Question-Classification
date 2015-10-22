@@ -11,4 +11,4 @@ neg contains examples of uncommon object questions. This contains description an
 first run process_data.py
 
 
-then run conv_net_sentence.py
+then run conv_net_question.py
