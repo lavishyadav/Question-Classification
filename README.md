@@ -9,4 +9,6 @@ pos contains examples of common object questions. This contains class person, en
 neg contains examples of uncommon object questions. This contains description and abbreviation classes for Question classification dataset.
 
 first run process_data.py
+
+
 then run conv_net_sentence.py
