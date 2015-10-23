@@ -9,14 +9,18 @@ Instructions:
 About the datasets:-
 
 1)MultipleChoice_mscoco_train2014_questions.json is question set from VQA dataset.
+
 2)commonobject file contains examples of common object questions. It contains persons, entity and location classes from Question classification dataset(http://cogcomp.cs.illinois.edu/Data/QA/QC/). 
+
 3)uncommonobject contains examples of uncommon object questions. It  contains description and abbreviation classes from Question classification dataset.
 
 
 First run: python extract_ques.py MultipleChoice_mscoco_train2014_questions.json 
+
 It extracts questions from JSON filegiven as argument to txt file for further processing. 
 
 Second run: python process_data.py GoogleNews-vectors-negative300.bin
+
 This file processes the datasets files. It uses the word2vec model to convert word to word vectors. Argument must point to GoogleNews-vectors-negative300.bin file. Downloadable from https://code.google.com/p/word2vec/.
 
 Thrid run: python conv_net_question.py -nonstatic -rand num
