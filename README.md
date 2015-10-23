@@ -1,14 +1,27 @@
-# Question-Classification
-Using CNN to answer common and uncommon questions
-
+# VQA Question-Classification
+Using CNN to answer clasify questions on common objects
 Runs on Python 2.7 and Theano 0.6
 
 Modified from https://github.com/yoonkim/CNN_sentence
 
-pos contains examples of common object questions. This contains class person, entity and location for Question classification dataset. 
-neg contains examples of uncommon object questions. This contains description and abbreviation classes for Question classification dataset.
+Instructions:
 
-first run process_data.py
+About the datasets:-
+
+1)MultipleChoice_mscoco_train2014_questions.json is question set from VQA dataset.
+2)commonobject file contains examples of common object questions. It contains persons, entity and location classes from Question classification dataset(http://cogcomp.cs.illinois.edu/Data/QA/QC/). 
+3)uncommonobject contains examples of uncommon object questions. It  contains description and abbreviation classes from Question classification dataset.
 
 
-then run conv_net_question.py
+First run: python extract_ques.py MultipleChoice_mscoco_train2014_questions.json 
+It extracts questions from JSON filegiven as argument to txt file for further processing. 
+
+Second run: python process_data.py GoogleNews-vectors-negative300.bin
+This file processes the datasets files. It uses the word2vec model to convert word to word vectors. Argument must point to GoogleNews-vectors-negative300.bin file. Downloadable from https://code.google.com/p/word2vec/.
+
+Thrid run: python conv_net_question.py -nonstatic -rand num
+           python conv_net_question.py -static -word2vec num
+           python conv_net_question.py -nonstatic -word2vec num
+It trains a CNN model to classify questions on common objects. The output of this run is two files named commonquestions.txt and uncommonquestions.txt.
+This will run the CNN-rand, CNN-static, and CNN-nonstatic models respectively from the paper http://arxiv.org/abs/1408.5882.
+Note : num is number of example from VQA dataset that you want to classify.
