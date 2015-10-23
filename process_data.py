@@ -5,7 +5,6 @@ import sys, re
 import pandas as pd
 
 
-
 def build_data_cv(data_folder, cv=10, clean_string=True):
     """
     Loads data and split into 10 folds.
@@ -13,6 +12,7 @@ def build_data_cv(data_folder, cv=10, clean_string=True):
     revs = []
     pos_file = data_folder[0]
     neg_file = data_folder[1]
+    test_file = data_folder[2]
     vocab = defaultdict(float)
     with open(pos_file, "rb") as f:
         for line in f:       
@@ -45,6 +45,23 @@ def build_data_cv(data_folder, cv=10, clean_string=True):
                       "text": orig_rev,                             
                       "num_words": len(orig_rev.split()),
                       "split": np.random.randint(0,cv)}
+            revs.append(datum)
+
+    with open(test_file, "rb") as f:
+        for line in f:       
+            rev = []
+            rev.append(line.strip())
+            if clean_string:
+                orig_rev = clean_str(" ".join(rev))
+            else:
+                orig_rev = " ".join(rev).lower()
+            words = set(orig_rev.split())
+            for word in words:
+                vocab[word] += 1
+            datum  = {"y":2, 
+                      "text": orig_rev,                             
+                      "num_words": len(orig_rev.split()),
+                      "split": 100}
             revs.append(datum)
     return revs, vocab
     
@@ -126,7 +143,7 @@ def clean_str_sst(string):
 
 if __name__=="__main__":    
     w2v_file = sys.argv[1]     
-    data_folder = ["pos","neg"]    
+    data_folder = ["datasets/commonobject","datasets/uncommonobject","datasets/ques"]    
     print "loading data...",        
     revs, vocab = build_data_cv(data_folder, cv=10, clean_string=True)
     max_l = np.max(pd.DataFrame(revs)["num_words"])
@@ -143,6 +160,6 @@ if __name__=="__main__":
     rand_vecs = {}
     add_unknown_words(rand_vecs, vocab)
     W2, _ = get_W(rand_vecs)
-    cPickle.dump([revs, W, W2, word_idx_map, vocab], open("mr.p", "wb")
+    cPickle.dump([revs, W, W2, word_idx_map, vocab], open("mr.p", "wb"))
     print "dataset created!"
     
