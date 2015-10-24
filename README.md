@@ -1,5 +1,7 @@
 # VQA Question-Classification
-Using CNN to answer clasify questions on common objects Runs on Python 2.7 and Theano 0.6
+Using CNN to clasify questions into two categories i.e questions on common objects and questions on uncommon objects.
+
+Runs on Python 2.7 and Theano 0.6
 
 Modified from https://github.com/yoonkim/CNN_sentence
 
