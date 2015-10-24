@@ -1,5 +1,5 @@
 # VQA Question-Classification
-Using CNN to clasify questions into two categories i.e questions on common objects and questions on uncommon objects.
+Using CNN to clasify questions into two categories i.e questions on common objects(like chair, bed, etc) and questions on abstract things(sand, mountain, etc).
 
 Runs on Python 2.7 and Theano 0.6
 
